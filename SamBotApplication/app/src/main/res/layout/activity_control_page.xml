@@ -11,8 +11,8 @@
         android:layout_width="194dp"
         android:layout_height="253dp"
         android:background="@android:color/white"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="44dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/options" />
 
     <ImageButton
         android:id="@+id/options"
@@ -21,7 +21,6 @@
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:cropToPadding="false"
-        android:onClick="swipeInfoPage"
         android:padding="2dp"
         android:scaleType="fitCenter"
         app:layout_constraintLeft_toLeftOf="parent"
