@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.a8672756.sambotapplication.ControlPage">
 
+    <ListView
+        android:id="@+id/dropDownMenu"
+        android:layout_width="194dp"
+        android:layout_height="253dp"
+        android:background="@android:color/white"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="44dp" />
+
     <ImageButton
         android:id="@+id/options"
         android:layout_width="44dp"
