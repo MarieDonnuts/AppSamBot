@@ -28,6 +28,8 @@ public class ControlPage extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO BLUETOOTH : Check if the bluetooth is activated before sending data
+                //TODO BLUETOOTH : If the bluetooth is disable, print a Toast on the screen
                 //TODO BLUETOOTH : Send stop
             }
         });
@@ -61,6 +63,16 @@ public class ControlPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO BLUETOOTH : Send backward
+            }
+        });
+
+        bluetooth = (ImageButton) findViewById(R.id.bluetooth);
+        bluetooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO BLUETOOTH : enable bluetooth
+                Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
+                startActivity(intent);
             }
         });
 
