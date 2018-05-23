@@ -1,4 +1,4 @@
-package com.example.bepid.bluetoothproject;
+package com.example.a8672756.sambotapplication;
 
 /**
  * Created by BEPID on 5/3/16.
