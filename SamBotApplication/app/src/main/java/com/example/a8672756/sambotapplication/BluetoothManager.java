@@ -77,7 +77,7 @@ public class BluetoothManager {
 
     }
 
-    public void turnOffBluetooth(){
+    public void turnOffBluetooth(ConnectionPage connectionPage){
         myBluetoothAdapter.disable();
     }
 

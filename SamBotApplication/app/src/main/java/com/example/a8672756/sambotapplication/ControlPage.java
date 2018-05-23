@@ -25,6 +25,9 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_page);
 
+        //Start the thread responsible of receiving the data from the other device
+        //BluetoothManager.getInstance().startReadingData(this);
+
         stop = (ImageButton) findViewById(R.id.stop);
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +103,15 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                         switchMode.setText("AUTO");
                     }
                 }
+            }
+        });
+
+        option = (ImageButton) findViewById(R.id.options);
+        option.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
+                startActivity(intent);
             }
         });
 
