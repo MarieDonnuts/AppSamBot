@@ -1,4 +1,4 @@
-package com.example.bepid.bluetoothproject;
+package com.example.a8672756.sambotapplication;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -344,7 +344,7 @@ public class BluetoothManager {
                 }
             }
         }
-
+    //TODO BLUETOOTH : see Upgrade tutorial
     }
 
 

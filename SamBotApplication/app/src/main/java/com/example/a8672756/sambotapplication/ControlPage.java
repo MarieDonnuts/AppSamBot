@@ -7,16 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class ControlPage extends AppCompatActivity {
+public class ControlPage extends AppCompatActivity implements BluetoothCallback {
     ImageButton stop;
     ImageButton up;
     ImageButton down;
     ImageButton right;
     ImageButton left;
     ImageButton option;
-    ImageButton bluetooth;
     ListView dropDownMenu;
+    Button switchMode;
 
     @Override
 
@@ -28,9 +29,11 @@ public class ControlPage extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO BLUETOOTH : Check if the bluetooth is activated before sending data
-                //TODO BLUETOOTH : If the bluetooth is disable, print a Toast on the screen
-                //TODO BLUETOOTH : Send stop
+                if(!BluetoothManager.getInstance().isBluetoothOn()){
+                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                }else{
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"5".toString());
+                }
             }
         });
 
@@ -38,7 +41,11 @@ public class ControlPage extends AppCompatActivity {
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO BLUETOOTH : Send left rotation
+                if(!BluetoothManager.getInstance().isBluetoothOn()){
+                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                }else{
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"4".toString());
+                }
             }
         });
 
@@ -46,7 +53,11 @@ public class ControlPage extends AppCompatActivity {
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO BLUETOOTH : Send right rotation
+                if(!BluetoothManager.getInstance().isBluetoothOn()){
+                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                }else{
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"6".toString());
+                }
             }
         });
 
@@ -54,7 +65,11 @@ public class ControlPage extends AppCompatActivity {
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO BLUETOOTH : Send forward
+                if(!BluetoothManager.getInstance().isBluetoothOn()){
+                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                }else{
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"8".toString());
+                }
             }
         });
 
@@ -62,19 +77,47 @@ public class ControlPage extends AppCompatActivity {
         down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO BLUETOOTH : Send backward
+                if(!BluetoothManager.getInstance().isBluetoothOn()){
+                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                }else{
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"2".toString());
+                }
             }
         });
 
-        bluetooth = (ImageButton) findViewById(R.id.bluetooth);
-        bluetooth.setOnClickListener(new View.OnClickListener() {
+        switchMode = (Button) findViewById(R.id.SwitchAuto);
+        switchMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO BLUETOOTH : enable bluetooth
-                Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
-                startActivity(intent);
+                if(!BluetoothManager.getInstance().isBluetoothOn()){
+                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(switchMode.getText()  == "AUTO"){
+                        BluetoothManager.getInstance().sendData(ControlPage.this,"1".toString());
+                        switchMode.setText("MANUAL");
+                    }else{
+                        BluetoothManager.getInstance().sendData(ControlPage.this,"0".toString());
+                        switchMode.setText("AUTO");
+                    }
+                }
             }
         });
+
+
+    }
+
+    @Override
+    public void onBluetoothConnection(int returnCode) {
+
+    }
+
+    @Override
+    public void onBluetoothDiscovery(int returnCode) {
+
+    }
+
+    @Override
+    public void onReceiveData(String data) {
 
     }
 }
