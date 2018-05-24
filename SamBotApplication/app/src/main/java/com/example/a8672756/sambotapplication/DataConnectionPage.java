@@ -9,6 +9,7 @@ import java.util.ArrayList;
 class DataConnectionPage {
     private static final DataConnectionPage ourInstance = new DataConnectionPage();
     ArrayList<String> arrayList = new ArrayList<String>();
+    int deviceChosen;
     static DataConnectionPage getInstance() {
         return ourInstance;
     }
