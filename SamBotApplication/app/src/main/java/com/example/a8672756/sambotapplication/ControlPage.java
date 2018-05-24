@@ -151,13 +151,18 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         dropDownMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            DataModel.getInstance().index = 0;
-            Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
-            startActivity(intent);
+                if(i == 0) {
+                    DataModel.getInstance().index = 0;
+                    Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
+                    startActivity(intent);
+                }
 
-            DataModel.getInstance().index = 1;
-            Intent intent1 = new Intent(ControlPage.this, Lightcontrol.class);
-            startActivity(intent1);
+                if (i== 2){
+                    DataModel.getInstance().index = 2;
+                    Intent intent1 = new Intent(ControlPage.this, Lightcontrol.class);
+                    startActivity(intent1);
+
+                }
             }
         });
 
