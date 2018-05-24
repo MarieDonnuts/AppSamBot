@@ -4,8 +4,10 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.ExpandedMenuView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -28,7 +30,7 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection_page);
 
-        BluetoothManager.getInstance().initializeBluetooth(this, "29bb18fa-41ed-4eea-87c6-45648001da1b", "NOMDEVICE");
+        BluetoothManager.getInstance().initializeBluetooth(this, "29bb18fa-41ed-4eea-87c6-45648001da1b", "RNBT - 7575");
 
         toggleBluetooth = (ToggleButton) findViewById(R.id.toggleBluetooth);
         toggleBluetooth.setChecked(BluetoothManager.getInstance().isBluetoothOn());
@@ -44,6 +46,13 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
             }
         });
 
+        devices = (ListView) findViewById(R.id.devices);
+        devices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DataConnectionPage.getInstance().deviceChosen = i;
+            }
+        });
 
         buttonConnect = (Button) findViewById(R.id.buttonConnect);
         buttonConnect.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +77,6 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
             }
         });
 
-        devices = (ListView) findViewById(R.id.devices);
 
         //Add devices to the Bluetooth list
         Set<BluetoothDevice> pairedDevices = BluetoothManager.getInstance().getDevices();
