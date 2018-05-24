@@ -10,7 +10,6 @@ class DataModel {
     public  ArrayList<String> arrayList = new ArrayList<>();
     int index;
 
-    public ArrayList<String> deviceList = new ArrayList<>();
 
     static DataModel getInstance() {
 
@@ -18,5 +17,8 @@ class DataModel {
     }
 
     private DataModel() {
+        arrayList.add("Connection page");
+        arrayList.add("Developer information");
+        arrayList.add("Light control");
     }
 }
