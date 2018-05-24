@@ -29,7 +29,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_page);
 
-        BluetoothManager.getInstance().initializeBluetooth(this, "321cb8fa-9066-4f58-935e-ef55d1ae0", "NOMDEVICE");
+        BluetoothManager.getInstance().initializeBluetooth(this, "29bb18fa-41ed-4eea-87c6-45648001da1b", "NOMDEVICE");
         //Start the thread responsible of receiving the data from the other device
         //BluetoothManager.getInstance().startReadingData(this);
 
@@ -41,7 +41,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                     Log.d("DDD","BT OFF");
                 }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"5".toString());
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"5");
                     Log.d("DDD","BT ON");
                 }
             }
@@ -55,7 +55,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"4".toString());
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"4");
                 }
             }
         });
@@ -67,7 +67,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"6".toString());
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"6");
                 }
             }
         });
@@ -79,7 +79,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"8".toString());
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"8");
                 }
             }
         });
@@ -91,7 +91,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"2".toString());
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"2");
                 }
             }
         });
@@ -105,10 +105,10 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
                     if(switchMode.getText()  == "AUTO"){
-                        BluetoothManager.getInstance().sendData(ControlPage.this,"1".toString());
+                        BluetoothManager.getInstance().sendData(ControlPage.this,"1");
                         switchMode.setText("MANUAL");
                     }else{
-                        BluetoothManager.getInstance().sendData(ControlPage.this,"0".toString());
+                        BluetoothManager.getInstance().sendData(ControlPage.this,"0");
                         switchMode.setText("AUTO");
                     }
                 }
@@ -129,8 +129,10 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         bluetoothStatue = (ImageView) findViewById(R.id.bluetoothStatue);
         if (BluetoothManager.getInstance().isBluetoothOn()){
             bluetoothStatue.setImageResource(R.drawable.bluetooth_connected);
+            bluetoothStatue.setVisibility(View.VISIBLE);
         }else{
             bluetoothStatue.setImageResource(R.drawable.bluetooth_disconnected);
+            bluetoothStatue.setVisibility(View.VISIBLE);
         }
 
 
