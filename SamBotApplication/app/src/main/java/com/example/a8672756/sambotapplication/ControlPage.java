@@ -213,6 +213,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 );
         dropDownMenu.setAdapter(adapter_control);
     }
+
     @Override
     public void onBluetoothConnection(int returnCode) {
 
