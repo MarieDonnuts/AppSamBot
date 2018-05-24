@@ -16,6 +16,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -85,6 +86,12 @@ public class BluetoothManager {
         return myBluetoothAdapter.isEnabled();
     }
 
+    public Set<BluetoothDevice> getDevices(){
+        Set<BluetoothDevice> pairedDevices;
+        pairedDevices = myBluetoothAdapter.getBondedDevices();
+        return pairedDevices;
+    }
+
     public void makeBluetoothDiscoverable(Activity activity,int time,BluetoothCallback bluetoothCallback){
         Intent turnVisibleIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         turnVisibleIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, time);
@@ -145,7 +152,6 @@ public class BluetoothManager {
             mBtSocket = socket;
 
         }
-
     }
 
 
