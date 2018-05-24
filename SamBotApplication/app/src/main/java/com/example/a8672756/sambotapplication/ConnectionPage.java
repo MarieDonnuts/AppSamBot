@@ -64,7 +64,8 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateList();
+                //updateList();
+                onResume();
             }
         });
 
@@ -73,8 +74,8 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
         for(BluetoothDevice bt : pairedDevices){
             DataConnectionPage.getInstance().arrayList.add(bt.getName());
         }
-        updateList();
-
+        //updateList();
+        onResume();
     }
 
     @Override
@@ -92,13 +93,13 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
 
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
         updateList();
-    }
+    }*/
 
-    void updateList(){
+    /*void updateList(){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 ConnectionPage.this,
                 android.R.layout.simple_list_item_1,
@@ -106,5 +107,5 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
                 DataConnectionPage.getInstance().arrayList
         );
         devices.setAdapter(adapter);
-    }
+    }*/
 }

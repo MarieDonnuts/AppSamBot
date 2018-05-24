@@ -134,7 +134,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         DataModel.getInstance().arrayList.add("Connection page");
         DataModel.getInstance().arrayList.add("Developer information");
         DataModel.getInstance().arrayList.add("Light control");
-        UpdateList();
+        updateList_control();
         dropDownMenu.setVisibility(View.INVISIBLE);
 
         option.setOnClickListener(new View.OnClickListener() {
@@ -155,11 +155,20 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         dropDownMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            DataModel.getInstance().index = i;
+            DataModel.getInstance().index = 0;
             Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
             startActivity(intent);
             }
         });
+
+        /*dropDownMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DataModel.getInstance().index = 1;
+                Intent intent = new Intent(ControlPage.this, Lightcontrol.class);
+                startActivity(intent);
+            }
+        });*/
 
 
 
@@ -194,15 +203,15 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     @Override
     protected void onResume(){
         super.onResume();
-        UpdateList();
+        updateList_control();
     }
 
-    void UpdateList(){
-        ArrayAdapter<String> adapter =
+    void updateList_control(){
+        ArrayAdapter<String> adapter_control =
                 new ArrayAdapter<String>(ControlPage.this,android.R.layout.simple_list_item_1,
                         android.R.id.text1, DataModel.getInstance().arrayList
                 );
-        dropDownMenu.setAdapter(adapter);
+        dropDownMenu.setAdapter(adapter_control);
     }
     @Override
     public void onBluetoothConnection(int returnCode) {
