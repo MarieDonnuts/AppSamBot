@@ -37,7 +37,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_page);
 
-        BluetoothManager.getInstance().initializeBluetooth(this, "29bb18fa-41ed-4eea-87c6-45648001da1b", "NOMDEVICE");
+        BluetoothManager.getInstance().initializeBluetooth(this, "00001101-0000-1000-8000-00805F9B34FB", "RNBT - 7575");
         //Start the thread responsible of receiving the data from the other device
         //BluetoothManager.getInstance().startReadingData(this);
 
@@ -188,8 +188,10 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     Toast.makeText(ControlPage.this, "The BT device is OFF!",
                             Toast.LENGTH_SHORT).show();
                     return;
+                }else{
+                    BluetoothManager.getInstance().startDiscover(ControlPage.this);
+                    Toast.makeText(ControlPage.this, "Connecting...", Toast.LENGTH_SHORT).show();
                 }
-                BluetoothManager.getInstance().startDiscover(ControlPage.this);
             }
         });
 
