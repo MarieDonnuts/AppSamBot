@@ -6,11 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.a8672756.sambotapplication.DataModel;
+
 
 public class ControlPage extends AppCompatActivity implements BluetoothCallback {
     ImageButton stop;
@@ -114,14 +118,16 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 }
             }
         });
-
+        dropDownMenu = (ListView) findViewById(R.id.dropDownMenu);
         //The option button leads to the connection page currently. Might be changed to dropdown a ListView
         option = (ImageButton) findViewById(R.id.options);
         option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
-                startActivity(intent);
+                DataModel.getInstance().arrayList.add("test");
+                UpdateList();
+                /*Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
+                startActivity(intent);*/
             }
         });
 
@@ -136,7 +142,19 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
 
 
     }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        UpdateList();
+    }
 
+    void UpdateList(){
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(ControlPage.this,android.R.layout.simple_list_item_1,
+                        android.R.id.text1, DataModel.getInstance().arrayList
+                );
+        dropDownMenu.setAdapter(adapter);
+    }
     @Override
     public void onBluetoothConnection(int returnCode) {
 
