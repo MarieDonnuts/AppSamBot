@@ -146,10 +146,6 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     dropDownMenu.setVisibility(View.VISIBLE);
                     dropDownMenu.bringToFront();
                 }
-                /*DataModel.getInstance().arrayList.add("test");
-                UpdateList();*/
-                /*Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
-                startActivity(intent);*/
             }
         });
         dropDownMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -158,17 +154,13 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
             DataModel.getInstance().index = 0;
             Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
             startActivity(intent);
+
+            DataModel.getInstance().index = 1;
+            Intent intent1 = new Intent(ControlPage.this, Lightcontrol.class);
+            startActivity(intent1);
             }
         });
 
-        /*dropDownMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DataModel.getInstance().index = 1;
-                Intent intent = new Intent(ControlPage.this, Lightcontrol.class);
-                startActivity(intent);
-            }
-        });*/
 
 
 
