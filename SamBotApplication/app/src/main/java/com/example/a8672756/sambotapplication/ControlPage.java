@@ -115,11 +115,11 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     if(switchMode.getText()  == "AUTO"){
                         BluetoothManager.getInstance().sendData(ControlPage.this,"1");
                         switchMode.setText("MANUAL");
-                        Toast.makeText(ControlPage.this, "Manual mode", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ControlPage.this, "Automatic mode", Toast.LENGTH_SHORT).show();
                     }else{
                         BluetoothManager.getInstance().sendData(ControlPage.this,"0");
                         switchMode.setText("AUTO");
-                        Toast.makeText(ControlPage.this, "Automatic mode", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ControlPage.this, "Manual mode", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
