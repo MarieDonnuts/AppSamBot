@@ -9,10 +9,13 @@
     <ListView
         android:id="@+id/dropDownMenu"
         android:layout_width="194dp"
-        android:layout_height="253dp"
+        android:layout_height="155dp"
         android:background="@android:color/white"
+        android:fadingEdge="none"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/options" />
+        app:layout_constraintTop_toBottomOf="@+id/options"
+        tools:layout_editor_absoluteX="247dp"
+        android:layout_marginTop="-1dp" />
 
     <ImageButton
         android:id="@+id/options"
@@ -37,7 +40,10 @@
         android:text="AUTO"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/upArrow"
+        app:layout_constraintVertical_bias="0.259" />
 
     <ImageButton
         android:id="@+id/stop"
@@ -128,5 +134,18 @@
         android:layout_marginTop="0dp"
         android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageButton
+        android:id="@+id/buttonConnectMenu"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintRight_toLeftOf="@+id/bluetoothStatue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bt_connect_plug" />
 
 </android.support.constraint.ConstraintLayout>

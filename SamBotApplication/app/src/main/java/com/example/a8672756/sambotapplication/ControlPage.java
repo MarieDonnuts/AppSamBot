@@ -1,11 +1,14 @@
 package com.example.a8672756.sambotapplication;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.provider.ContactsContract;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -26,6 +29,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     ListView dropDownMenu;
     Button switchMode;
     ImageView bluetoothStatue;
+    ImageButton buttonConnectMenu;
 
     @Override
 
@@ -43,10 +47,9 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
             public void onClick(View view) {
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
-                    Log.d("DDD","BT OFF");
                 }else{
                     BluetoothManager.getInstance().sendData(ControlPage.this,"5");
-                    Log.d("DDD","BT ON");
+                    Toast.makeText(ControlPage.this, "Stop", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -60,6 +63,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
                     BluetoothManager.getInstance().sendData(ControlPage.this,"4");
+                    Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -72,6 +76,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
                     BluetoothManager.getInstance().sendData(ControlPage.this,"6");
+                    Toast.makeText(ControlPage.this, "Turn right", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -84,6 +89,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
                     BluetoothManager.getInstance().sendData(ControlPage.this,"8");
+                    Toast.makeText(ControlPage.this, "Forward", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -96,6 +102,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
                     BluetoothManager.getInstance().sendData(ControlPage.this,"2");
+                    Toast.makeText(ControlPage.this, "Backward", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -111,9 +118,11 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     if(switchMode.getText()  == "AUTO"){
                         BluetoothManager.getInstance().sendData(ControlPage.this,"1");
                         switchMode.setText("MANUAL");
+                        Toast.makeText(ControlPage.this, "Automatic mode", Toast.LENGTH_SHORT).show();
                     }else{
                         BluetoothManager.getInstance().sendData(ControlPage.this,"0");
                         switchMode.setText("AUTO");
+                        Toast.makeText(ControlPage.this, "Manual mode", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -121,15 +130,44 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         dropDownMenu = (ListView) findViewById(R.id.dropDownMenu);
         //The option button leads to the connection page currently. Might be changed to dropdown a ListView
         option = (ImageButton) findViewById(R.id.options);
+
+        /*DataModel.getInstance().arrayList.add("Connection page");
+        DataModel.getInstance().arrayList.add("Developer information");
+        DataModel.getInstance().arrayList.add("Light control");
+        updateList_control();*/
+        dropDownMenu.setVisibility(View.INVISIBLE);
+
         option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DataModel.getInstance().arrayList.add("test");
-                UpdateList();
-                /*Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
-                startActivity(intent);*/
+                if (dropDownMenu.getVisibility()== View.VISIBLE) {
+                    dropDownMenu.setVisibility(View.INVISIBLE);
+                }else {
+                    dropDownMenu.setVisibility(View.VISIBLE);
+                    dropDownMenu.bringToFront();
+                }
             }
         });
+        dropDownMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i == 0) {
+                    DataModel.getInstance().index = 0;
+                    Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
+                    startActivity(intent);
+                }
+
+                if (i== 2){
+                    DataModel.getInstance().index = 2;
+                    Intent intent1 = new Intent(ControlPage.this, Lightcontrol.class);
+                    startActivity(intent1);
+
+                }
+            }
+        });
+
+
+
 
         //Definition of the image relative to the bluetooth connection statue
         bluetoothStatue = (ImageView) findViewById(R.id.bluetoothStatue);
@@ -141,22 +179,38 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
             bluetoothStatue.setVisibility(View.VISIBLE);
         }
 
+        //Button used to connect and disconnect from the device
+        buttonConnectMenu = (ImageButton) findViewById(R.id.buttonConnectMenu);
+        buttonConnectMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!BluetoothManager.getInstance().isBluetoothOn()) {
+                    Toast.makeText(ControlPage.this, "The BT device is OFF!",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                BluetoothManager.getInstance().startDiscover(ControlPage.this);
+            }
+        });
+
 
 
     }
+
     @Override
     protected void onResume(){
         super.onResume();
-        UpdateList();
+        updateList_control();
     }
 
-    void UpdateList(){
-        ArrayAdapter<String> adapter =
+    void updateList_control(){
+        ArrayAdapter<String> adapter_control =
                 new ArrayAdapter<String>(ControlPage.this,android.R.layout.simple_list_item_1,
                         android.R.id.text1, DataModel.getInstance().arrayList
                 );
-        dropDownMenu.setAdapter(adapter);
+        dropDownMenu.setAdapter(adapter_control);
     }
+
     @Override
     public void onBluetoothConnection(int returnCode) {
 
