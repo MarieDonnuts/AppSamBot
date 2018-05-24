@@ -1,11 +1,14 @@
 package com.example.a8672756.sambotapplication;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.provider.ContactsContract;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -121,15 +124,38 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         dropDownMenu = (ListView) findViewById(R.id.dropDownMenu);
         //The option button leads to the connection page currently. Might be changed to dropdown a ListView
         option = (ImageButton) findViewById(R.id.options);
+
+        DataModel.getInstance().arrayList.add("Connection page");
+        DataModel.getInstance().arrayList.add("Developer information");
+        DataModel.getInstance().arrayList.add("Light control");
+        UpdateList();
+        dropDownMenu.setVisibility(View.INVISIBLE);
+
         option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DataModel.getInstance().arrayList.add("test");
-                UpdateList();
+                if (dropDownMenu.getVisibility()== View.VISIBLE) {
+                    dropDownMenu.setVisibility(View.INVISIBLE);
+                }else {
+                    dropDownMenu.setVisibility(View.VISIBLE);
+                    dropDownMenu.bringToFront();
+                }
+                /*DataModel.getInstance().arrayList.add("test");
+                UpdateList();*/
                 /*Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
                 startActivity(intent);*/
             }
         });
+        dropDownMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            DataModel.getInstance().index = i;
+            Intent intent = new Intent(ControlPage.this, ConnectionPage.class);
+            startActivity(intent);
+            }
+        });
+
+
 
         //Definition of the image relative to the bluetooth connection statue
         bluetoothStatue = (ImageView) findViewById(R.id.bluetoothStatue);
@@ -144,6 +170,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
 
 
     }
+
     @Override
     protected void onResume(){
         super.onResume();
