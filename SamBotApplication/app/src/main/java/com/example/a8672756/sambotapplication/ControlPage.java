@@ -26,6 +26,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     ListView dropDownMenu;
     Button switchMode;
     ImageView bluetoothStatue;
+    ImageButton buttonConnectMenu;
 
     @Override
 
@@ -140,6 +141,20 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
             bluetoothStatue.setImageResource(R.drawable.bluetooth_disconnected);
             bluetoothStatue.setVisibility(View.VISIBLE);
         }
+
+        //Button used to connect and disconnect from the device
+        buttonConnectMenu = (ImageButton) findViewById(R.id.buttonConnectMenu);
+        buttonConnectMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!BluetoothManager.getInstance().isBluetoothOn()) {
+                    Toast.makeText(ControlPage.this, "The BT device is OFF!",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                BluetoothManager.getInstance().startDiscover(ControlPage.this);
+            }
+        });
 
 
 

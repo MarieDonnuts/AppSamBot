@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -15,6 +18,7 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
     ToggleButton toggleBluetooth;
     ListView devices;
     Button buttonConnect;
+    ImageButton refresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +33,6 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
         toggleBluetooth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                Log.d("DDD","isChecked="+isChecked);
                 if(isChecked){
                         BluetoothManager.getInstance().turnOnBluetooth(ConnectionPage.this);
                 }else{
@@ -37,6 +40,7 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
                 }
             }
         });
+
 
         buttonConnect = (Button) findViewById(R.id.buttonConnect);
         buttonConnect.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +57,19 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
             }
         });
 
+        refresh = (ImageButton) findViewById(R.id.refresh);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateList();
+            }
+        });
+
+        //Add devices to the Bluetooth list
+
+        DataConnectionPage.getInstance().arrayList.add("device1");
+        updateList();
+
     }
 
     @Override
@@ -68,5 +85,21 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
     @Override
     public void onReceiveData(String data) {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateList();
+    }
+
+    void updateList(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                ConnectionPage.this,
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1,
+                DataConnectionPage.getInstance().arrayList
+        );
+        devices.setAdapter(adapter);
     }
 }
