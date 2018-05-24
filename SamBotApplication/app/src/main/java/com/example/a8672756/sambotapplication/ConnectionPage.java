@@ -1,5 +1,6 @@
 package com.example.a8672756.sambotapplication;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import java.util.Set;
 
 public class ConnectionPage extends AppCompatActivity implements BluetoothCallback {
     ToggleButton toggleBluetooth;
@@ -66,8 +69,10 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
         });
 
         //Add devices to the Bluetooth list
-
-        DataConnectionPage.getInstance().arrayList.add("device1");
+        Set<BluetoothDevice> pairedDevices = BluetoothManager.getInstance().getDevices();
+        for(BluetoothDevice bt : pairedDevices){
+            DataConnectionPage.getInstance().arrayList.add(bt.getName());
+        }
         updateList();
 
     }
