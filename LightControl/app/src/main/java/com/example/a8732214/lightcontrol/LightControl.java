@@ -89,7 +89,21 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
             Toast.makeText(this, "Il y a un capteur de luminosité", Toast.LENGTH_LONG).show();
             checkBoxAutomaticLight.setEnabled(true);
         }
-        onAutomaticOrManual();
+        checkBoxAutomaticLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkBoxAutomaticLight.isChecked()) { // Automatic brightness
+                    seekBarLight.setEnabled(false);
+                    automaticBrightness();
+                    Toast.makeText(LightControl.this, "Automatic mode", Toast.LENGTH_SHORT).show();
+                } else { // Seek bar brightness
+                    seekBarLight.setEnabled(true);
+                    seekBarBrightness();
+                    Toast.makeText(LightControl.this, "Manual mode", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
 
@@ -153,7 +167,7 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
 
-        try {
+        /*try {
             //Get the current system brightness
             brightness = System.getInt(cResolver, System.SCREEN_BRIGHTNESS);
         } catch (SettingNotFoundException e) {
@@ -176,7 +190,7 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
         window.setAttributes(layoutpars);
 
         textViewLight.setText((int) perc + " %");
-        textViewValueSensor.setText("Value sensor : " + Float.toString(lux));
+        textViewValueSensor.setText("Value sensor : " + Float.toString(lux));*/
     }
 
     @Override
@@ -201,17 +215,5 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
         Toast.makeText(LightControl.this,"onAccurancyChanged()",Toast.LENGTH_SHORT).show();
-    }
-
-    public void onAutomaticOrManual() {
-        if (checkBoxAutomaticLight.isChecked()) { // Automatic brightness
-            seekBarLight.setEnabled(false);
-            automaticBrightness();
-            Toast.makeText(LightControl.this, "Automatic mode", Toast.LENGTH_SHORT).show();
-        } else { // Seek bar brightness
-            seekBarLight.setEnabled(true);
-            seekBarBrightness();
-            Toast.makeText(LightControl.this, "Manual mode", Toast.LENGTH_SHORT).show();
-        }
     }
 }
