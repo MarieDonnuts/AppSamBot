@@ -94,7 +94,7 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
             public void onClick(View view) {
                 if (checkBoxAutomaticLight.isChecked()) { // Automatic brightness
                     seekBarLight.setEnabled(false);
-                    automaticBrightness();
+                   automaticBrightness();
                     Toast.makeText(LightControl.this, "Automatic mode", Toast.LENGTH_SHORT).show();
                 } else { // Seek bar brightness
                     seekBarLight.setEnabled(true);
@@ -166,6 +166,13 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
         Settings.System.putInt(cResolver,
                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+       updateAutomatic();
+
+
+    }
+
+
+
 
         /*try {
             //Get the current system brightness
@@ -191,7 +198,18 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
 
         textViewLight.setText((int) perc + " %");
         textViewValueSensor.setText("Value sensor : " + Float.toString(lux));*/
-    }
+        
+     private void updateAutomatic()
+     {
+         runOnUiThread(new Runnable() {
+             @Override
+             public void run() {
+                 float perc = (brightness / (float) max_light) * 100;
+                 //Set the brightness percentage
+                 textViewLight.setText((int) perc + " %");
+             }
+         });
+     }
 
     @Override
     protected void onPause(){
