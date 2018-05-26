@@ -23,6 +23,7 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
     ToggleButton toggleBluetooth;
     ListView devices;
     Button buttonConnect;
+    Button buttonMenu;
     ImageButton refresh;
 
     @Override
@@ -30,7 +31,8 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection_page);
 
-        BluetoothManager.getInstance().initializeBluetooth(this, "00001101-0000-1000-8000-00805F9B34FB", "RNBT - 7575");
+        BluetoothManager.getInstance().initializeBluetooth
+                (this, "00001101-0000-1000-8000-00805F9B34FB", "RNBT-6A79");
 
         toggleBluetooth = (ToggleButton) findViewById(R.id.toggleBluetooth);
         toggleBluetooth.setChecked(BluetoothManager.getInstance().isBluetoothOn());
@@ -64,8 +66,17 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
                     return;
                 }
                 BluetoothManager.getInstance().startDiscover(ConnectionPage.this);
-                Intent intent = new Intent(ConnectionPage.this, ControlPage.class);
-                startActivity(intent);
+            }
+        });
+        buttonMenu = (Button) findViewById(R.id.buttonMenu);
+        buttonMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(ConnectionPage.this
+                        , ControlPage.class);
+
+                startActivity(intent1);
+
             }
         });
 
@@ -85,10 +96,24 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
         }
         updateList();
     }
-
+    //on the destroy we make sure to close the connections that we made.
+    @Override
+    protected void onDestroy() {
+        BluetoothManager.getInstance().closeBluetooth(this);
+        super.onDestroy();
+    }
     @Override
     public void onBluetoothConnection(int returnCode) {
+        if(returnCode == BluetoothManager.BLUETOOTH_CONNECTED){
+            Toast.makeText(ConnectionPage.this, "Connected",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ControlPage.class);
 
+            startActivity(intent);
+        }else if(returnCode == BluetoothManager.BLUETOOTH_CONNECTED_ERROR){
+            Toast.makeText(ConnectionPage.this, "ConnectionError",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

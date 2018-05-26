@@ -350,7 +350,6 @@ public class BluetoothManager {
                 }
             }
         }
-    //TODO BLUETOOTH : see Upgrade tutorial
     }
 
 
