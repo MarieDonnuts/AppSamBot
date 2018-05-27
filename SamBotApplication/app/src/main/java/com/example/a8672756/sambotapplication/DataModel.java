@@ -9,6 +9,7 @@ class DataModel {
 
     public  ArrayList<String> arrayList = new ArrayList<>();
     int index;
+    String developer;
 
 
     static DataModel getInstance() {

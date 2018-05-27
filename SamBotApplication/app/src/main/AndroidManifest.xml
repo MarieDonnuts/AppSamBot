@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ControlPage"
+        <activity
+            android:name=".ControlPage"
             android:label="SamBot Application">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InfoPage"
-            android:label="SamBot Application"/>
-        <activity android:name=".ConnectionPage"
-            android:label="SamBot Application"/>
-        <activity android:name=".Lightcontrol"
-            android:label="SamBot Application"></activity>
+        <activity
+            android:name=".InfoPage"
+            android:label="SamBot Application" />
+        <activity
+            android:name=".ConnectionPage"
+            android:label="SamBot Application" />
+        <activity
+            android:name=".Lightcontrol"
+            android:label="SamBot Application" />
+        <activity android:name=".InfoDeveloper"></activity>
     </application>
 
 </manifest>

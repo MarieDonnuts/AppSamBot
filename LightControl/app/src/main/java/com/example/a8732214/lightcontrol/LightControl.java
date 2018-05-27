@@ -94,7 +94,7 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
             public void onClick(View view) {
                 if (checkBoxAutomaticLight.isChecked()) { // Automatic brightness
                     seekBarLight.setEnabled(false);
-                   automaticBrightness();
+                    automaticBrightness();
                     Toast.makeText(LightControl.this, "Automatic mode", Toast.LENGTH_SHORT).show();
                 } else { // Seek bar brightness
                     seekBarLight.setEnabled(true);
