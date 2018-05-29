@@ -14,9 +14,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,8 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     Button switchMode;
     ImageView bluetoothStatue;
     ImageButton buttonConnectMenu;
+    CheckBox seekBarSpeed;
+    TextView textViewSpeed;
 
     @Override
 
@@ -120,6 +124,69 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
             }
         });
 
+        seekBarSpeed = (SeekBar) findViewById(R.id.seekBarSpeed);
+        seekBarSpeed.setKeyProgressIncrement(1);
+        seekBarSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            /**
+             * Method to show the value of seek bar
+             * @param seekBarLight : seek bar for speed
+             * @param progress : value of seek bar
+             * @param fromUser
+             */
+            public void onProgressChanged(SeekBar seekBarSpeed, int progress, boolean fromUser) {
+                int speed = 80;
+                switch (progress){
+                    case 4 :
+                        speed = 100;
+                        if(!BluetoothManager.getInstance().isBluetoothOn()){
+                            Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        }else{
+                            BluetoothManager.getInstance().sendData(ControlPage.this,"q".toString());
+                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 3 :
+                        speed = 80;
+                        if(!BluetoothManager.getInstance().isBluetoothOn()){
+                            Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        }else{
+                            BluetoothManager.getInstance().sendData(ControlPage.this,"t".toString());
+                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 2 :
+                        speed = 60;
+                        if(!BluetoothManager.getInstance().isBluetoothOn()){
+                            Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        }else{
+                            BluetoothManager.getInstance().sendData(ControlPage.this,"d".toString());
+                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 1 :
+                        speed = 40;
+                        if(!BluetoothManager.getInstance().isBluetoothOn()){
+                            Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        }else{
+                            BluetoothManager.getInstance().sendData(ControlPage.this,"u".toString());
+                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 0 :
+                        speed = 20;
+                        if(!BluetoothManager.getInstance().isBluetoothOn()){
+                            Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        }else{
+                            BluetoothManager.getInstance().sendData(ControlPage.this,"z".toString());
+                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                }
+                //Set the speed of robot
+                textViewSpeed.setText("Speed Robot : " + speed + " %");
+            }
+
+
         //This button switch the movement mode of the robot
         switchMode = (Button) findViewById(R.id.SwitchAuto);
         switchMode.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +207,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 }
             }
         });
+
         dropDownMenu = (ListView) findViewById(R.id.dropDownMenu);
         //The option button leads to the connection page currently. Might be changed to dropdown a ListView
         option = (ImageButton) findViewById(R.id.options);

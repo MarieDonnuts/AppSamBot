@@ -1,11 +1,5 @@
 package com.example.a8672756.sambotapplication;
 
-/* Liens utiles
-https://openclassrooms.com/courses/presentation-de-la-javadoc
-https://mathias-seguy.developpez.com/tutoriels/android/utiliser-capteurs/
-https://www.dev2qa.com/android-change-screen-brightness-use-seekbar-example/
-*/
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.hardware.Sensor;
@@ -26,7 +20,11 @@ import android.util.Log;
 import android.view.WindowManager.LayoutParams;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
+/**
+ * Class to create the control of brightness screen
+ */
 public class Lightcontrol extends AppCompatActivity implements SensorEventListener{
+
     // Variables declaration
     TextView textViewLight;
     TextView textViewValueSensor;
@@ -50,6 +48,10 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
     //Window object, that will store a reference to the current window
     private Window window;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +92,10 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
 
         // Action for click on checkbox
         checkBoxAutomaticLight.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Method for click on checkbox
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 if (checkBoxAutomaticLight.isChecked()) { // Automatic brightness
@@ -105,9 +111,15 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
         });
     }
 
-    // Funtion for seek bar brightness
+
+    /**
+     * Method for seek bar brightness
+     */
     public void seekBarBrightness()
     {
+        //Light sensor on pause
+        onPause();
+
         try {
             //Get the current system brightness
             brightness = System.getInt(cResolver, System.SCREEN_BRIGHTNESS);
@@ -122,6 +134,10 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
 
         //Register OnSeekBarChangeListener, so it can actually change values
         seekBarLight.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+            /**
+             * Method to change the screen brightness depending on seek bar
+             * @param seekBarLight : seek bar for brightness
+             */
             public void onStopTrackingTouch(SeekBar seekBarLight) {
                 //Set the system brightness using the brightness variable value
                 System.putInt(cResolver, System.SCREEN_BRIGHTNESS, brightness);
@@ -133,10 +149,20 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
                 window.setAttributes(layoutpars);
             }
 
+            /**
+             *
+             * @param seekBarLight : seek bar for brightness
+             */
             public void onStartTrackingTouch(SeekBar seekBarLight) {
                 //Nothing handled here
             }
 
+            /**
+             * Method to show the value of seek bar
+             * @param seekBarLight : seek bar for brightness
+             * @param progress : value of seek bar
+             * @param fromUser
+             */
             public void onProgressChanged(SeekBar seekBarLight, int progress, boolean fromUser) {
                 //Set the minimal brightness level
                 //if seek bar is min_light or any value below
@@ -152,20 +178,18 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
                 float perc = (brightness / (float) max_light) * 100;
                 //Set the brightness percentage
                 textViewLight.setText("Light : " + (int) perc + " %");
-
-                /*Settings.System.putInt(cResolver,
-                        Settings.System.SCREEN_BRIGHTNESS_MODE,
-                        System.SCREEN_BRIGHTNESS_MODE_MANUAL);*/
             }
         });
     }
 
-    // Funtion for seek bar brightness
+
+    /**
+     * Method for seek bar brightness
+     */
     public void automaticBrightness(){
 
-        /*Settings.System.putInt(cResolver,
-                Settings.System.SCREEN_BRIGHTNESS_MODE,
-                Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);*/
+        //Light sensor on resume
+        onResume();
 
         try {
             //Get the current system brightness
@@ -187,14 +211,20 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
         if (perc > 100)
             perc = 100;
 
-        //Set the system brightness using the brightness variable value
-        System.putInt(cResolver, System.SCREEN_BRIGHTNESS, brightness);
-        //Get the current window attributes
-        LayoutParams layoutpars = window.getAttributes();
-        //Set the brightness of this window
-        layoutpars.screenBrightness = brightness / (float) max_light;
-        //Apply attribute changes to this window
-        window.setAttributes(layoutpars);
+        /**
+         * Method to change the screen brightness depending on seek bar
+         * @param seekBarLight : seek bar for brightness
+         */
+        public void onStopTrackingTouch(SeekBar seekBarLight) {
+            //Set the system brightness using the brightness variable value
+            System.putInt(cResolver, System.SCREEN_BRIGHTNESS, brightness);
+            //Get the current window attributes
+            LayoutParams layoutpars = window.getAttributes();
+            //Set the brightness of this window
+            layoutpars.screenBrightness = brightness / (float) max_light;
+            //Apply attribute changes to this window
+            window.setAttributes(layoutpars);
+        }
 
         //Set the brightness percentage
         textViewLight.setText("Light : " + (int) perc + " %");
@@ -203,18 +233,28 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
 
     }
 
+    /**
+     * Sensor on pause
+     */
     @Override
     protected void onPause(){
         mySensorManager.unregisterListener(this, light);
         super.onPause();
     }
 
+    /**
+     * Sensor on resume
+     */
     @Override
     protected void onResume(){
         mySensorManager.registerListener(this, light,SensorManager.SENSOR_DELAY_UI);
         super.onResume();
     }
 
+    /**
+     * Instruction if value of brightness change (event on light sensor)
+     * @param event
+     */
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_LIGHT){
@@ -224,6 +264,11 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    /**
+     * Instruction if accuracy change
+     * @param sensor
+     * @param accuracy
+     */
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         Toast.makeText(Lightcontrol.this,"onAccuracyChanged()",Toast.LENGTH_SHORT).show();
