@@ -61,7 +61,7 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
         textViewLight = (TextView) findViewById(R.id.textViewLight);
         checkBoxAutomaticLight = (CheckBox) findViewById(R.id.checkBoxAutomaticLight);
         seekBarLight = (SeekBar) findViewById(R.id.seekBarLight);
-        textViewValueSensor = (TextView) findViewById(R.id.textViewLight);
+        textViewValueSensor = (TextView) findViewById(R.id.textViewValueSensor);
 
         //Get the content resolver
         cResolver = getContentResolver();
@@ -82,31 +82,32 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
         // Retur NULL if it doesn't exist
         light = mySensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
-        if (light == null) {
+        if (light == null) { // if sensor light doesn't exist, toast "No brightness sensor"
             Toast.makeText(this, "Pas de capteur de luminosité", Toast.LENGTH_LONG).show();
             checkBoxAutomaticLight.setEnabled(false);
-        } else {
+        } else { // if sensor light exists, toast "Brightness sensor"
             Toast.makeText(this, "Il y a un capteur de luminosité", Toast.LENGTH_LONG).show();
             checkBoxAutomaticLight.setEnabled(true);
         }
+
+        // Action for click on checkbox
         checkBoxAutomaticLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkBoxAutomaticLight.isChecked()) { // Automatic brightness
                     seekBarLight.setEnabled(false);
-                    automaticBrightness();
+                    automaticBrightness(); // Automatic brightness
                     Toast.makeText(LightControl.this, "Automatic mode", Toast.LENGTH_SHORT).show();
                 } else { // Seek bar brightness
                     seekBarLight.setEnabled(true);
-                    seekBarBrightness();
+                    seekBarBrightness(); // Seek bar brightness
                     Toast.makeText(LightControl.this, "Manual mode", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
 
-
+    // Funtion for seek bar brightness
     public void seekBarBrightness()
     {
         try {
@@ -152,29 +153,23 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
                 //Calculate the brightness percentage
                 float perc = (brightness / (float) max_light) * 100;
                 //Set the brightness percentage
-                textViewLight.setText((int) perc + " %");
+                textViewLight.setText("Light : " + (int) perc + " %");
 
-                Settings.System.putInt(cResolver,
+                /*Settings.System.putInt(cResolver,
                         Settings.System.SCREEN_BRIGHTNESS_MODE,
-                        System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                        System.SCREEN_BRIGHTNESS_MODE_MANUAL);*/
             }
         });
     }
 
+    // Funtion for seek bar brightness
     public void automaticBrightness(){
 
-        Settings.System.putInt(cResolver,
+        /*Settings.System.putInt(cResolver,
                 Settings.System.SCREEN_BRIGHTNESS_MODE,
-                Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-       updateAutomatic();
+                Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);*/
 
-
-    }
-
-
-
-
-        /*try {
+        try {
             //Get the current system brightness
             brightness = System.getInt(cResolver, System.SCREEN_BRIGHTNESS);
         } catch (SettingNotFoundException e) {
@@ -183,9 +178,16 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
             e.printStackTrace();
         }
 
+        //Calculate the brightness percentage
         double perc = 0.1957*lux + 2.173;
+
+        //Calculate the brightness
         double brightNess = (perc / 100) * max_light;
         brightness = (int) brightNess;
+
+        // Percent is not > 100% : Correction
+        if (perc > 100)
+            perc = 100;
 
         //Set the system brightness using the brightness variable value
         System.putInt(cResolver, System.SCREEN_BRIGHTNESS, brightness);
@@ -196,20 +198,12 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
         //Apply attribute changes to this window
         window.setAttributes(layoutpars);
 
-        textViewLight.setText((int) perc + " %");
-        textViewValueSensor.setText("Value sensor : " + Float.toString(lux));*/
-        
-     private void updateAutomatic()
-     {
-         runOnUiThread(new Runnable() {
-             @Override
-             public void run() {
-                 float perc = (brightness / (float) max_light) * 100;
-                 //Set the brightness percentage
-                 textViewLight.setText((int) perc + " %");
-             }
-         });
-     }
+        //Set the brightness percentage
+        textViewLight.setText("Light : " + (int) perc + " %");
+        //Set the brightness
+        textViewValueSensor.setText("Value sensor : " + Float.toString(lux));
+
+    }
 
     @Override
     protected void onPause(){
@@ -219,7 +213,7 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
 
     @Override
     protected void onResume(){
-        mySensorManager.registerListener(this, light,SensorManager.SENSOR_DELAY_GAME);
+        mySensorManager.registerListener(this, light,SensorManager.SENSOR_DELAY_UI);
         super.onResume();
     }
 
@@ -227,11 +221,13 @@ public class LightControl extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_LIGHT){
             lux = event.values[0];
+            if (checkBoxAutomaticLight.isChecked())  // Automatic brightness
+                automaticBrightness();
         }
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-        Toast.makeText(LightControl.this,"onAccurancyChanged()",Toast.LENGTH_SHORT).show();
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        Toast.makeText(LightControl.this,"onAccuracyChanged()",Toast.LENGTH_SHORT).show();
     }
 }
