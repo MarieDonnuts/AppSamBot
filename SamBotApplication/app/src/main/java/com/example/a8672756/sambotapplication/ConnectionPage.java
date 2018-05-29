@@ -4,15 +4,12 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.menu.ExpandedMenuView;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -68,7 +65,7 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
                 BluetoothManager.getInstance().startDiscover(ConnectionPage.this);
             }
         });
-        buttonMenu = (Button) findViewById(R.id.buttonMenu);
+        buttonMenu = (Button) findViewById(R.id.buttonMainMenu);
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

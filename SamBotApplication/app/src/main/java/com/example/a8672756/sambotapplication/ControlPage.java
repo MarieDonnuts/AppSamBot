@@ -157,10 +157,17 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     startActivity(intent);
                 }
 
+                if (i== 1){
+                    DataModel.getInstance().index = 1;
+                    Intent intent1 = new Intent(ControlPage.this, InfoPage.class);
+                    startActivity(intent1);
+
+                }
+
                 if (i== 2){
                     DataModel.getInstance().index = 2;
-                    Intent intent1 = new Intent(ControlPage.this, Lightcontrol.class);
-                    startActivity(intent1);
+                    Intent intent2 = new Intent(ControlPage.this, Lightcontrol.class);
+                    startActivity(intent2);
 
                 }
             }

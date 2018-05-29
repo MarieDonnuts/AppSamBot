@@ -11,6 +11,7 @@ public class InfoPage extends AppCompatActivity {
     Button buttonMarie;
     Button buttonRodolphe;
     Button buttonToan;
+    Button buttonConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,15 @@ public class InfoPage extends AppCompatActivity {
                 Intent intent = new Intent(InfoPage.this, InfoDeveloper.class);
                 startActivity(intent);
                 DataModel.getInstance().developer = "Toan";
+            }
+        });
+
+        buttonConnection = (Button) findViewById(R.id.buttonMainMenu);
+        buttonConnection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InfoPage.this, ControlPage.class);
+                startActivity(intent);
             }
         });
     }
