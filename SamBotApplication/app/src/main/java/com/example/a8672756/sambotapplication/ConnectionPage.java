@@ -29,7 +29,7 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
         setContentView(R.layout.activity_connection_page);
 
         BluetoothManager.getInstance().initializeBluetooth
-                (this, "00001101-0000-1000-8000-00805F9B34FB", "RNBT-6A79");
+                (this, "00001101-0000-1000-8000-00805F9B34FB", "RNBT-B0C2");
 
         toggleBluetooth = (ToggleButton) findViewById(R.id.toggleBluetooth);
         toggleBluetooth.setChecked(BluetoothManager.getInstance().isBluetoothOn());

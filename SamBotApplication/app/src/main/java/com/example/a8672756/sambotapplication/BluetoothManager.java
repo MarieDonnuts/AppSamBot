@@ -250,7 +250,7 @@ public class BluetoothManager {
         }
     };
 
-    public void sendData(BluetoothCallback bluetoothCallback,String data){
+    public void sendData(BluetoothCallback bluetoothCallback, String data){
         callback = bluetoothCallback;
         SendDataTask task = new SendDataTask();
         task.execute(data);
