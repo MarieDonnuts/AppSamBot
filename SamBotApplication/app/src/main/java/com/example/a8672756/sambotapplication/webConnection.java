@@ -13,7 +13,7 @@ import java.net.URL;
 
 public class WebConnection extends AsyncTask<String, Void, String> {
 
-    String str;
+    private String str;
 
     @Override
     protected String doInBackground(String... params) {
@@ -27,25 +27,37 @@ public class WebConnection extends AsyncTask<String, Void, String> {
         str = s;
     }
 
-    public String executeRequest(URL url) {
-        HttpURLConnection urlConnection = null;
-        String webcontent = null;
-        try{
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            webcontent = generateString(in);
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            if (urlConnection != null){
-                urlConnection.disconnect();
+    public void executeRequest (final URL url) {
+        // try to connect
+
+        Thread tryConnection = new Thread() {
+            public void run() {
+                String webcontent =null;
+                try {
+
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    try {
+                        InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                        webcontent = generateString(in);
+                        if (webcontent != "OK") {
+                            //Le serveur ne répond pas OK -> la requete n'a pas aboutie
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (urlConnection != null) {
+                            urlConnection.disconnect();
+                        }
+                    }
+                } catch (MalformedURLException e2) {
+                    e2.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        return webcontent;
+        };
+        tryConnection.start();
     }
 
     private static String generateString(InputStream stream){

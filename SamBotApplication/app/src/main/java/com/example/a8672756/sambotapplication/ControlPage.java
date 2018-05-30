@@ -36,6 +36,8 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     SeekBar seekBarSpeed;
     TextView textViewSpeed;
 
+    private long time = System.currentTimeMillis() /1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,15 +53,17 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 }else{
                     BluetoothManager.getInstance().sendData(ControlPage.this,"5".toString());
                     String urlStr = String.format
-                            ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=stop",
-                                    Lightcontrol.lux, System.currentTimeMillis());
+                            ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=stop",
+                                    (int)Lightcontrol.lux, time);
                     URL url = null;
                     try {
                         url = new URL(urlStr);
+                        Log.d("PDAPP", "url :"+url);
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
                     new WebConnection().executeRequest(url);
+
                     Toast.makeText(ControlPage.this, "Stop", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -75,16 +79,16 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 }else{
                     BluetoothManager.getInstance().sendData(ControlPage.this,"4");
                     String urlStr = String.format
-                            ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=turnleft",
-                                    Lightcontrol.lux, System.currentTimeMillis());
+                            ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=turnleft",
+                                    (int)Lightcontrol.lux, time);
                     URL url = null;
                     try {
                         url = new URL(urlStr);
+                        Log.d("PDAPP", "url :"+url);
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
                     new WebConnection().executeRequest(url);
-
                     Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -99,11 +103,12 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 }else{
                     BluetoothManager.getInstance().sendData(ControlPage.this,"6");
                     String urlStr = String.format
-                            ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=turnRight",
-                                    Lightcontrol.lux, System.currentTimeMillis());
+                            ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=turnright",
+                                    (int)Lightcontrol.lux, time);
                     URL url = null;
                     try {
                         url = new URL(urlStr);
+                        Log.d("PDAPP", "url :"+url);
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
@@ -133,11 +138,12 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                         e.printStackTrace();
                     }*/
                     String urlStr = String.format
-                            ("http://cabani.free.fr/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=forward",
-                                    Lightcontrol.lux, System.currentTimeMillis());
+                            ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=forward",
+                                    (int)Lightcontrol.lux, time);
                     URL url = null;
                     try {
                         url = new URL(urlStr);
+                        Log.d("PDAPP", "url :"+url);
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
@@ -156,11 +162,12 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 }else{
                     BluetoothManager.getInstance().sendData(ControlPage.this,"2");
                     String urlStr = String.format
-                            ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=backward",
-                                    Lightcontrol.lux, System.currentTimeMillis());
+                            ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=backward",
+                                    (int)Lightcontrol.lux, time);
                     URL url = null;
                     try {
                         url = new URL(urlStr);
+                        Log.d("PDAPP", "url :"+url);
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
@@ -190,11 +197,12 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                         } else {
                             BluetoothManager.getInstance().sendData(ControlPage.this, "q".toString());
                             String urlStr = String.format
-                                    ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=speed100",
-                                            Lightcontrol.lux, System.currentTimeMillis());
+                                    ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=speed100",
+                                            Lightcontrol.lux, time);
                             URL url = null;
                             try {
                                 url = new URL(urlStr);
+                                Log.d("PDAPP", "url :"+url);
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                             }
@@ -209,16 +217,16 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                         } else {
                             BluetoothManager.getInstance().sendData(ControlPage.this, "t".toString());
                             String urlStr = String.format
-                                    ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=speed80",
-                                            Lightcontrol.lux, System.currentTimeMillis());
+                                    ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=speed80",
+                                            (int)Lightcontrol.lux, time);
                             URL url = null;
                             try {
                                 url = new URL(urlStr);
+                                Log.d("PDAPP", "url :"+url);
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                             }
                             new WebConnection().executeRequest(url);
-                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 2:
@@ -228,11 +236,12 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                         } else {
                             BluetoothManager.getInstance().sendData(ControlPage.this, "d".toString());
                             String urlStr = String.format
-                                    ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=speed60",
-                                            Lightcontrol.lux, System.currentTimeMillis());
+                                    ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=speed60",
+                                            (int)Lightcontrol.lux, time);
                             URL url = null;
                             try {
                                 url = new URL(urlStr);
+                                Log.d("PDAPP", "url :"+url);
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                             }
@@ -247,11 +256,12 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                         } else {
                             BluetoothManager.getInstance().sendData(ControlPage.this, "u".toString());
                             String urlStr = String.format
-                                    ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=speed40",
-                                            Lightcontrol.lux, System.currentTimeMillis());
+                                    ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=speed40",
+                                            (int)Lightcontrol.lux, time);
                             URL url = null;
                             try {
                                 url = new URL(urlStr);
+                                Log.d("PDAPP", "url :"+url);
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                             }
@@ -266,11 +276,12 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                         } else {
                             BluetoothManager.getInstance().sendData(ControlPage.this, "z".toString());
                             String urlStr = String.format
-                                    ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=speed20",
-                                            Lightcontrol.lux, System.currentTimeMillis());
+                                    ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=speed20",
+                                            (int)Lightcontrol.lux, time);
                             URL url = null;
                             try {
                                 url = new URL(urlStr);
+                                Log.d("PDAPP", "url :"+url);
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                             }
@@ -368,6 +379,10 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
 
 
 
+    }
+    private String getTime() {
+        long seconds = new Date().getTime() / 1000;
+        return Long.toString(seconds);
     }
 
     @Override

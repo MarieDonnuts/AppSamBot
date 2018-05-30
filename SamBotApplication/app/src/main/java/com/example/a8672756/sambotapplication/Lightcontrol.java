@@ -133,7 +133,7 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
     public void seekBarBrightness()
     {
         //Light sensor on pause
-        onPause();
+        onResume();
 
         try {
             //Get the current system brightness
