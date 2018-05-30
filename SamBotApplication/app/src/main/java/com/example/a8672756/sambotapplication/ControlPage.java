@@ -2,6 +2,9 @@ package com.example.a8672756.sambotapplication;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +14,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a8672756.sambotapplication.DataModel;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 public class ControlPage extends AppCompatActivity implements BluetoothCallback {
@@ -28,7 +43,14 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     ImageButton option;
     ListView dropDownMenu;
     Button switchMode;
+<<<<<<< HEAD
 
+=======
+    ImageView bluetoothStatue;
+    ImageButton buttonConnectMenu;
+    SeekBar seekBarSpeed;
+    TextView textViewSpeed;
+>>>>>>> cc311078fbf981807588d6d07f344b4fe91fdbe9
 
     @Override
 
@@ -106,6 +128,80 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
             }
         });
 
+        seekBarSpeed = (SeekBar) findViewById(R.id.seekBarSpeed);
+        seekBarSpeed.setKeyProgressIncrement(1);
+        seekBarSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            /**
+             * Method to show the value of seek bar
+             *
+             * @param seekBarSpeed : seek bar for speed
+             * @param progress     : value of seek bar
+             * @param fromUser
+             */
+            public void onProgressChanged(SeekBar seekBarSpeed, int progress, boolean fromUser) {
+                int speed = 80;
+                switch (progress) {
+                    case 4:
+                        speed = 100;
+                        if (!BluetoothManager.getInstance().isBluetoothOn()) {
+                            Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        } else {
+                            BluetoothManager.getInstance().sendData(ControlPage.this, "q".toString());
+                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 3:
+                        speed = 80;
+                        if (!BluetoothManager.getInstance().isBluetoothOn()) {
+                            Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        } else {
+                            BluetoothManager.getInstance().sendData(ControlPage.this, "t".toString());
+                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 2:
+                        speed = 60;
+                        if (!BluetoothManager.getInstance().isBluetoothOn()) {
+                            Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        } else {
+                            BluetoothManager.getInstance().sendData(ControlPage.this, "d".toString());
+                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 1:
+                        speed = 40;
+                        if (!BluetoothManager.getInstance().isBluetoothOn()) {
+                            Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        } else {
+                            BluetoothManager.getInstance().sendData(ControlPage.this, "u".toString());
+                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 0:
+                        speed = 20;
+                        if (!BluetoothManager.getInstance().isBluetoothOn()) {
+                            Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        } else {
+                            BluetoothManager.getInstance().sendData(ControlPage.this, "z".toString());
+                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                }
+                //Set the speed of robot
+                textViewSpeed.setText("Speed Robot : " + speed + " %");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         //This button switch the movement mode of the robot
         switchMode = (Button) findViewById(R.id.SwitchAuto);
         switchMode.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +222,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 }
             }
         });
+
         dropDownMenu = (ListView) findViewById(R.id.dropDownMenu);
         //The option button leads to the connection page currently. Might be changed to dropdown a ListView
         option = (ImageButton) findViewById(R.id.options);
@@ -173,6 +270,11 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         });
 
 
+        //TODO : Check the internet connection statue
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+
+
 
     }
 
@@ -203,5 +305,59 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     @Override
     public void onReceiveData(String data) {
 
+    }
+}
+
+abstract class webConnection extends AsyncTask<String, Void, String>{
+
+    String str;
+
+    @Override
+    protected String doInBackground(String... params) {
+        this.str = params[0];
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        str = s;
+    }
+
+    protected String executeRequest() {
+        HttpURLConnection urlConnection = null;
+        String webcontent = null;
+        try{
+            URL url = new URL("http://.../");
+            urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            webcontent = generateString(in);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (urlConnection != null){
+                urlConnection.disconnect();
+            }
+        }
+        return webcontent;
+    }
+
+    private String generateString(InputStream stream){
+        InputStreamReader reader = new InputStreamReader(stream);
+        BufferedReader buffer = new BufferedReader(reader);
+        StringBuilder sb = new StringBuilder();
+        try {
+            String cur;
+            while ((cur = buffer.readLine()) != null){
+                sb.append(cur + System.getProperty("line.separator"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 }
