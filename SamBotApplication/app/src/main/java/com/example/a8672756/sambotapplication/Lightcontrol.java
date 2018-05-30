@@ -2,6 +2,7 @@ package com.example.a8672756.sambotapplication;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -47,6 +49,8 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
     private ContentResolver cResolver;
     //Window object, that will store a reference to the current window
     private Window window;
+    //button go to controlpage
+    Button buttonMenuLight;
 
     /**
      *
@@ -62,6 +66,17 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
         checkBoxAutomaticLight = (CheckBox) findViewById(R.id.checkBoxAutomaticLight);
         seekBarLight = (SeekBar) findViewById(R.id.seekBarLight);
         textViewValueSensor = (TextView) findViewById(R.id.textViewValueSensor);
+
+
+        buttonMenuLight = (Button) findViewById(R.id.buttonMenuLight);
+        buttonMenuLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Lightcontrol.this, ControlPage.class);
+                startActivity(intent);
+            }
+        });
+
 
         //Get the content resolver
         cResolver = getContentResolver();
