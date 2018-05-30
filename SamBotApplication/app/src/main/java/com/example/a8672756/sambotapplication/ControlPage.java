@@ -43,15 +43,20 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     ImageButton option;
     ListView dropDownMenu;
     Button switchMode;
+<<<<<<< HEAD
+=======
 
+>>>>>>> 421620627612892387340975346e7be2cff9fcaf
     ImageView bluetoothStatue;
     ImageButton buttonConnectMenu;
     SeekBar seekBarSpeed;
     TextView textViewSpeed;
+<<<<<<< HEAD
+=======
 
+>>>>>>> 421620627612892387340975346e7be2cff9fcaf
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_page);
@@ -64,20 +69,26 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
+<<<<<<< HEAD
+=======
 
                     BluetoothManager.getInstance().sendData(ControlPage.this, "5");
 
+>>>>>>> 421620627612892387340975346e7be2cff9fcaf
                     BluetoothManager.getInstance().sendData(ControlPage.this,"5".toString());
                     try{
                         String urlStr = String.format
                                 ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=stop",
-                                Lightcontrol.lux, System.currentTimeMillis());
+                                        Lightcontrol.lux, System.currentTimeMillis());
                         URL url = new URL(urlStr);
                         webConnection.executeRequest(url);
                     }catch(MalformedURLException e) {
                         e.printStackTrace();
                     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 421620627612892387340975346e7be2cff9fcaf
                     Toast.makeText(ControlPage.this, "Stop", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -89,18 +100,18 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
             @Override
             public void onClick(View view) {
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
+                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                }else{
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"4");
                     try{
                         String urlStr = String.format
                                 ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=turnLeft",
-                                Lightcontrol.lux, System.currentTimeMillis());
+                                        Lightcontrol.lux, System.currentTimeMillis());
                         URL url = new URL(urlStr);
                         webConnection.executeRequest(url);
                     }catch(MalformedURLException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
-                }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"4");
                     Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -111,18 +122,18 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
             @Override
             public void onClick(View view) {
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
+                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                }else{
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"6");
                     try{
                         String urlStr = String.format
                                 ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=turnRight",
-                                Lightcontrol.lux, System.currentTimeMillis());
+                                        Lightcontrol.lux, System.currentTimeMillis());
                         URL url = new URL(urlStr);
                         webConnection.executeRequest(url);
                     }catch(MalformedURLException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
-                }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"6");
                     Toast.makeText(ControlPage.this, "Turn right", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -133,18 +144,18 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
             @Override
             public void onClick(View view) {
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
+                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                }else{
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"8".toString());
                     try{
                         String urlStr = String.format
                                 ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=forward",
-                                Lightcontrol.lux, System.currentTimeMillis());
+                                        Lightcontrol.lux, System.currentTimeMillis());
                         URL url = new URL(urlStr);
                         webConnection.executeRequest(url);
                     }catch(MalformedURLException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
-                }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"8".toString());
                     Toast.makeText(ControlPage.this, "Forward", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -155,18 +166,18 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
             @Override
             public void onClick(View view) {
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
+                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
+                }else{
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"2");
                     try{
                         String urlStr = String.format
                                 ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=backward",
-                                Lightcontrol.lux, System.currentTimeMillis());
+                                        Lightcontrol.lux, System.currentTimeMillis());
                         URL url = new URL(urlStr);
                         webConnection.executeRequest(url);
                     }catch(MalformedURLException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
-                }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"2");
                     Toast.makeText(ControlPage.this, "Backward", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -212,7 +223,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             try{
                                 String urlStr = String.format
                                         ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=speed80",
-                                        Lightcontrol.lux, System.currentTimeMillis());
+                                                Lightcontrol.lux, System.currentTimeMillis());
                                 URL url = new URL(urlStr);
                                 webConnection.executeRequest(url);
                             }catch(MalformedURLException e) {
@@ -248,7 +259,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             try{
                                 String urlStr = String.format
                                         ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=speed40",
-                                        Lightcontrol.lux, System.currentTimeMillis());
+                                                Lightcontrol.lux, System.currentTimeMillis());
                                 URL url = new URL(urlStr);
                                 webConnection.executeRequest(url);
                             }catch(MalformedURLException e) {
