@@ -45,7 +45,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     Button switchMode;
     ImageView bluetoothStatue;
     ImageButton buttonConnectMenu;
-    CheckBox seekBarSpeed;
+    SeekBar seekBarSpeed;
     TextView textViewSpeed;
 
     @Override
@@ -129,55 +129,56 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         seekBarSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             /**
              * Method to show the value of seek bar
-             * @param seekBarLight : seek bar for speed
-             * @param progress : value of seek bar
+             *
+             * @param seekBarSpeed : seek bar for speed
+             * @param progress     : value of seek bar
              * @param fromUser
              */
             public void onProgressChanged(SeekBar seekBarSpeed, int progress, boolean fromUser) {
                 int speed = 80;
-                switch (progress){
-                    case 4 :
+                switch (progress) {
+                    case 4:
                         speed = 100;
-                        if(!BluetoothManager.getInstance().isBluetoothOn()){
-                            Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
-                        }else{
-                            BluetoothManager.getInstance().sendData(ControlPage.this,"q".toString());
+                        if (!BluetoothManager.getInstance().isBluetoothOn()) {
+                            Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        } else {
+                            BluetoothManager.getInstance().sendData(ControlPage.this, "q".toString());
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                         }
                         break;
-                    case 3 :
+                    case 3:
                         speed = 80;
-                        if(!BluetoothManager.getInstance().isBluetoothOn()){
-                            Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
-                        }else{
-                            BluetoothManager.getInstance().sendData(ControlPage.this,"t".toString());
+                        if (!BluetoothManager.getInstance().isBluetoothOn()) {
+                            Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        } else {
+                            BluetoothManager.getInstance().sendData(ControlPage.this, "t".toString());
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                         }
                         break;
-                    case 2 :
+                    case 2:
                         speed = 60;
-                        if(!BluetoothManager.getInstance().isBluetoothOn()){
-                            Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
-                        }else{
-                            BluetoothManager.getInstance().sendData(ControlPage.this,"d".toString());
+                        if (!BluetoothManager.getInstance().isBluetoothOn()) {
+                            Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        } else {
+                            BluetoothManager.getInstance().sendData(ControlPage.this, "d".toString());
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                         }
                         break;
-                    case 1 :
+                    case 1:
                         speed = 40;
-                        if(!BluetoothManager.getInstance().isBluetoothOn()){
-                            Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
-                        }else{
-                            BluetoothManager.getInstance().sendData(ControlPage.this,"u".toString());
+                        if (!BluetoothManager.getInstance().isBluetoothOn()) {
+                            Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        } else {
+                            BluetoothManager.getInstance().sendData(ControlPage.this, "u".toString());
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                         }
                         break;
-                    case 0 :
+                    case 0:
                         speed = 20;
-                        if(!BluetoothManager.getInstance().isBluetoothOn()){
-                            Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
-                        }else{
-                            BluetoothManager.getInstance().sendData(ControlPage.this,"z".toString());
+                        if (!BluetoothManager.getInstance().isBluetoothOn()) {
+                            Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
+                        } else {
+                            BluetoothManager.getInstance().sendData(ControlPage.this, "z".toString());
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                         }
                         break;
@@ -186,6 +187,16 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 textViewSpeed.setText("Speed Robot : " + speed + " %");
             }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         //This button switch the movement mode of the robot
         switchMode = (Button) findViewById(R.id.SwitchAuto);
@@ -372,5 +383,6 @@ abstract class webConnection extends AsyncTask<String, Void, String>{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return sb.toString();
     }
 }
