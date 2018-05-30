@@ -36,7 +36,7 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
     // sensor light
     private Sensor light;
     //Variable lux
-    float lux;
+    static float lux;
     //Variable to max brightness value
     private int max_light = 255;
     //Variable to min brightness value
@@ -211,20 +211,16 @@ public class Lightcontrol extends AppCompatActivity implements SensorEventListen
         if (perc > 100)
             perc = 100;
 
-        /**
-         * Method to change the screen brightness depending on seek bar
-         * @param seekBarLight : seek bar for brightness
-         */
-        public void onStopTrackingTouch(SeekBar seekBarLight) {
-            //Set the system brightness using the brightness variable value
-            System.putInt(cResolver, System.SCREEN_BRIGHTNESS, brightness);
-            //Get the current window attributes
-            LayoutParams layoutpars = window.getAttributes();
-            //Set the brightness of this window
-            layoutpars.screenBrightness = brightness / (float) max_light;
-            //Apply attribute changes to this window
-            window.setAttributes(layoutpars);
-        }
+
+        //Set the system brightness using the brightness variable value
+        System.putInt(cResolver, System.SCREEN_BRIGHTNESS, brightness);
+        //Get the current window attributes
+        LayoutParams layoutpars = window.getAttributes();
+        //Set the brightness of this window
+        layoutpars.screenBrightness = brightness / (float) max_light;
+        //Apply attribute changes to this window
+        window.setAttributes(layoutpars);
+
 
         //Set the brightness percentage
         textViewLight.setText("Light : " + (int) perc + " %");
