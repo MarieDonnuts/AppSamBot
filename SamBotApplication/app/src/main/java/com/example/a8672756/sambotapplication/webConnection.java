@@ -11,7 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class webConnection extends AsyncTask<String, Void, String> {
+public class WebConnection extends AsyncTask<String, Void, String> {
 
     String str;
 
@@ -27,7 +27,7 @@ public class webConnection extends AsyncTask<String, Void, String> {
         str = s;
     }
 
-    public static String executeRequest(URL url) {
+    public String executeRequest(URL url) {
         HttpURLConnection urlConnection = null;
         String webcontent = null;
         try{
@@ -37,7 +37,7 @@ public class webConnection extends AsyncTask<String, Void, String> {
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace();
         }
         finally {

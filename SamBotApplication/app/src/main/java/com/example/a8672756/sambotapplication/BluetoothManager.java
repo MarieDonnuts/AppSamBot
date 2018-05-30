@@ -26,7 +26,8 @@ public class BluetoothManager {
 
 
     private static final BluetoothManager instance = new BluetoothManager();
-    public static BluetoothManager getInstance() { return instance; }
+    public static BluetoothManager getInstance() {
+        return instance; }
 
     //CHANGE THE UUID FOR YOUR CODE
     private static UUID MY_UUID;
