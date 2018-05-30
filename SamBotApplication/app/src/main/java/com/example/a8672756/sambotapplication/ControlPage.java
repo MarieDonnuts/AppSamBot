@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.NetworkOnMainThreadException;
 import android.provider.ContactsContract;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
@@ -43,18 +44,10 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     ImageButton option;
     ListView dropDownMenu;
     Button switchMode;
-<<<<<<< HEAD
-=======
-
->>>>>>> 421620627612892387340975346e7be2cff9fcaf
     ImageView bluetoothStatue;
     ImageButton buttonConnectMenu;
     SeekBar seekBarSpeed;
     TextView textViewSpeed;
-<<<<<<< HEAD
-=======
-
->>>>>>> 421620627612892387340975346e7be2cff9fcaf
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,26 +65,18 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
-<<<<<<< HEAD
-=======
-
-                    BluetoothManager.getInstance().sendData(ControlPage.this, "5");
-
->>>>>>> 421620627612892387340975346e7be2cff9fcaf
                     BluetoothManager.getInstance().sendData(ControlPage.this,"5".toString());
                     try{
                         String urlStr = String.format
-                                ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=stop",
+                                ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=stop",
                                         Lightcontrol.lux, System.currentTimeMillis());
                         URL url = new URL(urlStr);
                         webConnection.executeRequest(url);
                     }catch(MalformedURLException e) {
                         e.printStackTrace();
+                    }catch (NetworkOnMainThreadException e){
+                        e.printStackTrace();
                     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 421620627612892387340975346e7be2cff9fcaf
                     Toast.makeText(ControlPage.this, "Stop", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -108,11 +93,13 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     BluetoothManager.getInstance().sendData(ControlPage.this,"4");
                     try{
                         String urlStr = String.format
-                                ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=turnLeft",
+                                ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=turnLeft",
                                         Lightcontrol.lux, System.currentTimeMillis());
                         URL url = new URL(urlStr);
                         webConnection.executeRequest(url);
                     }catch(MalformedURLException e) {
+                        e.printStackTrace();
+                    }catch (NetworkOnMainThreadException e){
                         e.printStackTrace();
                     }
                     Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
@@ -130,11 +117,13 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     BluetoothManager.getInstance().sendData(ControlPage.this,"6");
                     try{
                         String urlStr = String.format
-                                ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=turnRight",
+                                ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=turnRight",
                                         Lightcontrol.lux, System.currentTimeMillis());
                         URL url = new URL(urlStr);
                         webConnection.executeRequest(url);
                     }catch(MalformedURLException e) {
+                        e.printStackTrace();
+                    }catch (NetworkOnMainThreadException e){
                         e.printStackTrace();
                     }
                     Toast.makeText(ControlPage.this, "Turn right", Toast.LENGTH_SHORT).show();
@@ -152,11 +141,13 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     BluetoothManager.getInstance().sendData(ControlPage.this,"8".toString());
                     try{
                         String urlStr = String.format
-                                ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=forward",
+                                ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=forward",
                                         Lightcontrol.lux, System.currentTimeMillis());
                         URL url = new URL(urlStr);
                         webConnection.executeRequest(url);
                     }catch(MalformedURLException e) {
+                        e.printStackTrace();
+                    }catch (NetworkOnMainThreadException e){
                         e.printStackTrace();
                     }
                     Toast.makeText(ControlPage.this, "Forward", Toast.LENGTH_SHORT).show();
@@ -174,11 +165,13 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     BluetoothManager.getInstance().sendData(ControlPage.this,"2");
                     try{
                         String urlStr = String.format
-                                ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=backward",
+                                ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=backward",
                                         Lightcontrol.lux, System.currentTimeMillis());
                         URL url = new URL(urlStr);
                         webConnection.executeRequest(url);
                     }catch(MalformedURLException e) {
+                        e.printStackTrace();
+                    }catch (NetworkOnMainThreadException e){
                         e.printStackTrace();
                     }
                     Toast.makeText(ControlPage.this, "Backward", Toast.LENGTH_SHORT).show();
@@ -207,11 +200,13 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             BluetoothManager.getInstance().sendData(ControlPage.this, "q".toString());
                             try{
                                 String urlStr = String.format
-                                        ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=speed100",
+                                        ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=speed100",
                                                 Lightcontrol.lux, System.currentTimeMillis());
                                 URL url = new URL(urlStr);
                                 webConnection.executeRequest(url);
                             }catch(MalformedURLException e) {
+                                e.printStackTrace();
+                            }catch (NetworkOnMainThreadException e){
                                 e.printStackTrace();
                             }
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
@@ -225,11 +220,13 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             BluetoothManager.getInstance().sendData(ControlPage.this, "t".toString());
                             try{
                                 String urlStr = String.format
-                                        ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=speed80",
+                                        ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=speed80",
                                                 Lightcontrol.lux, System.currentTimeMillis());
                                 URL url = new URL(urlStr);
                                 webConnection.executeRequest(url);
                             }catch(MalformedURLException e) {
+                                e.printStackTrace();
+                            }catch (NetworkOnMainThreadException e){
                                 e.printStackTrace();
                             }
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
@@ -243,11 +240,13 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             BluetoothManager.getInstance().sendData(ControlPage.this, "d".toString());
                             try{
                                 String urlStr = String.format
-                                        ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=speed60",
+                                        ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=speed60",
                                                 Lightcontrol.lux, System.currentTimeMillis());
                                 URL url = new URL(urlStr);
                                 webConnection.executeRequest(url);
                             }catch(MalformedURLException e) {
+                                e.printStackTrace();
+                            }catch (NetworkOnMainThreadException e){
                                 e.printStackTrace();
                             }
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
@@ -261,13 +260,16 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             BluetoothManager.getInstance().sendData(ControlPage.this, "u".toString());
                             try{
                                 String urlStr = String.format
-                                        ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=speed40",
+                                        ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=speed40",
                                                 Lightcontrol.lux, System.currentTimeMillis());
                                 URL url = new URL(urlStr);
                                 webConnection.executeRequest(url);
                             }catch(MalformedURLException e) {
                                 e.printStackTrace();
+                            }catch (NetworkOnMainThreadException e){
+                                e.printStackTrace();
                             }
+
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                         }
                         break;
@@ -279,11 +281,13 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             BluetoothManager.getInstance().sendData(ControlPage.this, "z".toString());
                             try{
                                 String urlStr = String.format
-                                        ("http://cabani.net/ise/adddata.php?idproject=grp8&lux=%f&timestamp=%f&action=speed20",
+                                        ("http://cabani.net/ise/adddata.php?idproject=v8&lux=%f&timestamp=%d&action=speed20",
                                                 Lightcontrol.lux, System.currentTimeMillis());
                                 URL url = new URL(urlStr);
                                 webConnection.executeRequest(url);
                             }catch(MalformedURLException e) {
+                                e.printStackTrace();
+                            }catch (NetworkOnMainThreadException e){
                                 e.printStackTrace();
                             }
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
