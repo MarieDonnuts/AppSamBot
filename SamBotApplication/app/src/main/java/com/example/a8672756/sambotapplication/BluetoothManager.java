@@ -38,6 +38,7 @@ public class BluetoothManager {
 
     private BluetoothAdapter myBluetoothAdapter;
 
+
     public boolean initializeBluetooth(Activity activity,String uuid,String name){
 
         myBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -199,6 +200,7 @@ public class BluetoothManager {
                 // Get the BluetoothDevice object from the Intent
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // add the name and the MAC address of the object to the arrayAdapter
+                Log.d("BT", SEARCH_NAME+"==>"+device.getName());
                 if(TextUtils.equals(device.getName(), SEARCH_NAME)) {
                     //Matching device found, connect
                     myBluetoothAdapter.cancelDiscovery();
@@ -278,8 +280,12 @@ public class BluetoothManager {
         protected String doInBackground(String... params) {
             InputStream in = null;
             OutputStream out = null;
+
             try {
                 //Send your data
+                Log.d("BT", "==> instance = "+BluetoothManager.getInstance());
+                Log.d("BT","==> Sent data : "+params[0]+"      "+params[0].getBytes());
+                Log.d("BT","==> Type data : "+params[0].getClass());
                 out = mBtSocket.getOutputStream();
                 out.write(params[0].getBytes());
                 //Receive the other's data

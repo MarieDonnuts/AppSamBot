@@ -28,8 +28,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     ImageButton option;
     ListView dropDownMenu;
     Button switchMode;
-    ImageView bluetoothStatue;
-    ImageButton buttonConnectMenu;
+
 
     @Override
 
@@ -37,7 +36,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_page);
 
-        BluetoothManager.getInstance().initializeBluetooth(this, "000001101-0000-1000-8000-00805F9B34FB", "RNBT-6A79");
+       // BluetoothManager.getInstance().initializeBluetooth(this, "000001101-0000-1000-8000-00805F9B34FB", "RNBT-63E1");
         //Start the thread responsible of receiving the data from the other device
         //BluetoothManager.getInstance().startReadingData(this);
 
@@ -48,7 +47,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"5".toString());
+                    BluetoothManager.getInstance().sendData(ControlPage.this, "5");
                     Toast.makeText(ControlPage.this, "Stop", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -62,7 +61,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"4".toString());
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"4");
                     Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -75,7 +74,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"6".toString());
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"6");
                     Toast.makeText(ControlPage.this, "Turn right", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -101,7 +100,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
-                    BluetoothManager.getInstance().sendData(ControlPage.this,"2".toString());
+                    BluetoothManager.getInstance().sendData(ControlPage.this,"2");
                     Toast.makeText(ControlPage.this, "Backward", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -116,11 +115,11 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
                     if(switchMode.getText()  == "AUTO"){
-                        BluetoothManager.getInstance().sendData(ControlPage.this,"1".toString());
+                        BluetoothManager.getInstance().sendData(ControlPage.this,"1");
                         switchMode.setText("MANUAL");
                         Toast.makeText(ControlPage.this, "Automatic mode", Toast.LENGTH_SHORT).show();
                     }else{
-                        BluetoothManager.getInstance().sendData(ControlPage.this,"0".toString());
+                        BluetoothManager.getInstance().sendData(ControlPage.this,"0");
                         switchMode.setText("AUTO");
                         Toast.makeText(ControlPage.this, "Manual mode", Toast.LENGTH_SHORT).show();
                     }
@@ -169,35 +168,6 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     Intent intent2 = new Intent(ControlPage.this, Lightcontrol.class);
                     startActivity(intent2);
 
-                }
-            }
-        });
-
-
-
-
-        //Definition of the image relative to the bluetooth connection statue
-        bluetoothStatue = (ImageView) findViewById(R.id.bluetoothStatue);
-        if (BluetoothManager.getInstance().isBluetoothOn()){
-            bluetoothStatue.setImageResource(R.drawable.bluetooth_connected);
-            bluetoothStatue.setVisibility(View.VISIBLE);
-        }else{
-            bluetoothStatue.setImageResource(R.drawable.bluetooth_disconnected);
-            bluetoothStatue.setVisibility(View.VISIBLE);
-        }
-
-        //Button used to connect and disconnect from the device
-        buttonConnectMenu = (ImageButton) findViewById(R.id.buttonConnectMenu);
-        buttonConnectMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!BluetoothManager.getInstance().isBluetoothOn()) {
-                    Toast.makeText(ControlPage.this, "The BT device is OFF!",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }else{
-                    BluetoothManager.getInstance().startDiscover(ControlPage.this);
-                    Toast.makeText(ControlPage.this, "Connecting...", Toast.LENGTH_SHORT).show();
                 }
             }
         });

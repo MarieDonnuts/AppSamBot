@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,7 +30,7 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
         setContentView(R.layout.activity_connection_page);
 
         BluetoothManager.getInstance().initializeBluetooth
-                (this, "00001101-0000-1000-8000-00805F9B34FB", "RNBT-B0C2");
+                (this, "00001101-0000-1000-8000-00805F9B34FB", "RNBT-63E1");
 
         toggleBluetooth = (ToggleButton) findViewById(R.id.toggleBluetooth);
         toggleBluetooth.setChecked(BluetoothManager.getInstance().isBluetoothOn());
@@ -62,6 +63,7 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
+                Log.d("BT", "==> instance = "+BluetoothManager.getInstance());
                 BluetoothManager.getInstance().startDiscover(ConnectionPage.this);
             }
         });
