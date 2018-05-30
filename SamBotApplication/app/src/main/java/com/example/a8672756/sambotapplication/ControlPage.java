@@ -43,10 +43,18 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     ImageButton option;
     ListView dropDownMenu;
     Button switchMode;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 421620627612892387340975346e7be2cff9fcaf
     ImageView bluetoothStatue;
     ImageButton buttonConnectMenu;
     SeekBar seekBarSpeed;
     TextView textViewSpeed;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 421620627612892387340975346e7be2cff9fcaf
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,12 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                 if(!BluetoothManager.getInstance().isBluetoothOn()){
                     Toast.makeText(ControlPage.this,"The bluetooth is off", Toast.LENGTH_SHORT).show();
                 }else{
+<<<<<<< HEAD
+=======
+
+                    BluetoothManager.getInstance().sendData(ControlPage.this, "5");
+
+>>>>>>> 421620627612892387340975346e7be2cff9fcaf
                     BluetoothManager.getInstance().sendData(ControlPage.this,"5".toString());
                     try{
                         String urlStr = String.format
@@ -74,6 +88,10 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                     }catch(MalformedURLException e) {
                         e.printStackTrace();
                     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 421620627612892387340975346e7be2cff9fcaf
                     Toast.makeText(ControlPage.this, "Stop", Toast.LENGTH_SHORT).show();
                 }
             }
