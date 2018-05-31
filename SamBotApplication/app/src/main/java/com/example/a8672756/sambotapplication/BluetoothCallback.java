@@ -2,6 +2,7 @@ package com.example.a8672756.sambotapplication;
 
 /**
  * Created by BEPID on 5/3/16.
+ * @description: function callback for the bluetooth connection
  */
 public interface BluetoothCallback {
 

@@ -10,16 +10,31 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
+/**
+ * @author  DONNET Marie
+ * @author PHAM TRAN Toan
+ * @author LATOUR Rodolphe
+ * Class to connect the smartphone to the cloud server
+ * Create on may 23 2018
+ *
+ */
 public class WebConnection extends AsyncTask<String, Void, String> {
 
+    //Variable declaration
+    //Variable str
     private String str;
 
+    /**
+     * @param params
+     */
     @Override
     protected String doInBackground(String... params) {
         this.str = params[0];
         return null;
     }
+    /**
+     * @param s
+     */
 
     @Override
     protected void onPostExecute(String s) {
@@ -28,6 +43,10 @@ public class WebConnection extends AsyncTask<String, Void, String> {
     }
 
 
+    /**
+     *Method to execute a request
+     * @param url
+     */
     public void executeRequest (final URL url) {
         // try to connect
 
@@ -35,13 +54,14 @@ public class WebConnection extends AsyncTask<String, Void, String> {
             public void run() {
                 String webcontent =null;
                 try {
-
+                    //Initiate the url connection
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     try {
                         InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                         webcontent = generateString(in);
+                        //if the server respond the webcontent will send Ok
                         if (webcontent != "OK") {
-                            //Le serveur ne répond pas OK -> la requete n'a pas aboutie
+
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -59,7 +79,10 @@ public class WebConnection extends AsyncTask<String, Void, String> {
         };
         tryConnection.start();
     }
-
+    /**
+     * Method generate String
+     * @param stream
+     */
     private static String generateString(InputStream stream){
         InputStreamReader reader = new InputStreamReader(stream);
         BufferedReader buffer = new BufferedReader(reader);

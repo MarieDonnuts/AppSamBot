@@ -21,6 +21,7 @@ import java.util.UUID;
 
 /**
  * Created by markjoselli2015 on 4/14/15.
+ * Class  who set functions for the bluetooth connection
  */
 public class BluetoothManager {
 
@@ -88,6 +89,8 @@ public class BluetoothManager {
         return myBluetoothAdapter.isEnabled();
     }
 
+
+    //Get all the name devices connected to the smartphone
     public Set<BluetoothDevice> getDevices(){
         Set<BluetoothDevice> pairedDevices;
         pairedDevices = myBluetoothAdapter.getBondedDevices();
