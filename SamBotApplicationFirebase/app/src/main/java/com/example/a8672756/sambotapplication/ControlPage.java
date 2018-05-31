@@ -35,6 +35,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     ImageButton buttonConnectMenu;
     SeekBar seekBarSpeed;
     TextView textViewSpeed;
+    int speed;
 
     private long time = System.currentTimeMillis() /1000;
 
@@ -188,10 +189,37 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
              * @param fromUser
              */
             public void onProgressChanged(SeekBar seekBarSpeed, int progress, boolean fromUser) {
-                int speed = 80;
                 switch (progress) {
                     case 4:
                         speed = 100;
+                        break;
+                    case 3:
+                        speed = 80;
+                        break;
+                    case 2:
+                        speed = 60;
+                        break;
+                    case 1:
+                        speed = 40;
+                        break;
+                    case 0:
+                        speed = 20;
+                        break;
+                }
+                //Set the speed of robot
+                textViewSpeed.setText("Speed Robot : " + speed + " %");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //Nothing handled here
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                switch(speed)
+                {
+                    case 100:
                         if (!BluetoothManager.getInstance().isBluetoothOn()) {
                             Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
                         } else {
@@ -210,8 +238,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                         }
                         break;
-                    case 3:
-                        speed = 80;
+                    case 80:
                         if (!BluetoothManager.getInstance().isBluetoothOn()) {
                             Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
                         } else {
@@ -229,8 +256,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             new WebConnection().executeRequest(url);
                         }
                         break;
-                    case 2:
-                        speed = 60;
+                    case 60:
                         if (!BluetoothManager.getInstance().isBluetoothOn()) {
                             Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
                         } else {
@@ -249,8 +275,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                         }
                         break;
-                    case 1:
-                        speed = 40;
+                    case 40:
                         if (!BluetoothManager.getInstance().isBluetoothOn()) {
                             Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
                         } else {
@@ -269,8 +294,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
                         }
                         break;
-                    case 0:
-                        speed = 20;
+                    case 20:
                         if (!BluetoothManager.getInstance().isBluetoothOn()) {
                             Toast.makeText(ControlPage.this, "The bluetooth is off", Toast.LENGTH_SHORT).show();
                         } else {
@@ -290,18 +314,6 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                         }
                         break;
                 }
-                //Set the speed of robot
-                textViewSpeed.setText("Speed Robot : " + speed + " %");
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
 
