@@ -10,8 +10,8 @@ import android.widget.Button;
  * @author  DONNET Marie
  * @author PHAM TRAN Toan
  * @author LATOUR Rodolphe
- * @author Class to create the control of brightness screen
- *  Create on may 23 2018
+ * Class to create the control of brightness screen
+ * Create on may 23 2018
  *
  */
 

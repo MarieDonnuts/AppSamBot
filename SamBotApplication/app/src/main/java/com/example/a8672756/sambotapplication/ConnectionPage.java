@@ -21,6 +21,7 @@ import java.util.Set;
  * @author DONNET Marie
  * @author LATOUR Rodolphe
  * @author PHAM TRAN Toan
+ * Class for the bluetooth connection
  * Created on may 24 2018
  */
 
@@ -33,6 +34,10 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
     Button buttonMenu;
     ImageButton refresh;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,7 +163,7 @@ public class ConnectionPage extends AppCompatActivity implements BluetoothCallba
     }
 
     /**
-     * Methode to update the list of devices
+     * Method to update the list of devices
      */
 
     void updateList(){

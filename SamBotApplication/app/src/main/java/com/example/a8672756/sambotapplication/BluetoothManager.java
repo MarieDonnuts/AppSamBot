@@ -89,6 +89,8 @@ public class BluetoothManager {
         return myBluetoothAdapter.isEnabled();
     }
 
+
+    //Get all the name devices connected to the smartphone
     public Set<BluetoothDevice> getDevices(){
         Set<BluetoothDevice> pairedDevices;
         pairedDevices = myBluetoothAdapter.getBondedDevices();

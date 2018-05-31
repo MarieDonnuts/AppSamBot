@@ -48,6 +48,10 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     //time : real time of the application
     private long time = System.currentTimeMillis() /1000;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

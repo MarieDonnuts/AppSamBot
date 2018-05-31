@@ -80,7 +80,7 @@ public class WebConnection extends AsyncTask<String, Void, String> {
         tryConnection.start();
     }
     /**
-     * Method build a string
+     * Method generate String
      * @param stream
      */
     private static String generateString(InputStream stream){

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author  DONNET Marie
  * @author PHAM TRAN Toan
  * @author LATOUR Rodolphe
- * @author Class to create the data model for the connection page
+ * Class to create the data model for the connection page
  *  Create on may 24 2018
  *
  */
@@ -16,6 +16,7 @@ class DataConnectionPage {
 
     //variable device chosen
     int deviceChosen;
+
     static DataConnectionPage getInstance() {
         return ourInstance;
     }

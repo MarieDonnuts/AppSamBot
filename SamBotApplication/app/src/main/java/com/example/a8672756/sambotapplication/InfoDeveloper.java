@@ -11,14 +11,14 @@ import android.widget.ViewAnimator;
  * @author  DONNET Marie
  * @author PHAM TRAN Toan
  * @author LATOUR Rodolphe
- * @author Class to create the Main activity of our application
- *  Create on may 27 2018
+ * Class to create the Main activity of our application
+ * Create on may 27 2018
  *
  */
 
 public class InfoDeveloper extends AppCompatActivity {
 
-    //Varaible declaration
+    //Variable declaration
     TextView developer;
     TextView infos;
     ImageView photo;
@@ -49,14 +49,14 @@ public class InfoDeveloper extends AppCompatActivity {
         }
         //Set the data of the developer Rodolphe
         if (DataModel.getInstance().developer == "Rodolphe"){
-            infos.setText("Rodolphe is 23 years old, \nHe likes ...");
+            infos.setText("Rodolphe is 23 years old, \nHe plays music and composes");
             photo.setImageResource(R.drawable.photo_rodolphe);
             photo.setVisibility(View.VISIBLE);
         }
 
         //Set the data of the developer
         if (DataModel.getInstance().developer == "Toan"){
-            infos.setText("Toan is 21 years old, \nHe likes ...");
+            infos.setText("Toan is 21 years old, \nHe likes making jokes and chinese food");
             photo.setImageResource(R.drawable.photo_toan);
             photo.setVisibility(View.VISIBLE);
         }
