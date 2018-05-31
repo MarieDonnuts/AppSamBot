@@ -330,10 +330,8 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
         //The option button leads to the connection page currently. Might be changed to dropdown a ListView
         option = (ImageButton) findViewById(R.id.options);
 
-        /*DataModel.getInstance().arrayList.add("Connection page");
-        DataModel.getInstance().arrayList.add("Developer information");
-        DataModel.getInstance().arrayList.add("Light control");
-        updateList_control();*/
+
+
         dropDownMenu.setVisibility(View.INVISIBLE);
 
         option.setOnClickListener(new View.OnClickListener() {

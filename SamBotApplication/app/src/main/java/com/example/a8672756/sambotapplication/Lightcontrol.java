@@ -22,8 +22,13 @@ import android.util.Log;
 import android.view.WindowManager.LayoutParams;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-/**
- * Class to create the control of brightness screen
+/*
+ * @developer: DONNET Marie
+ * @developer: PHAM TRAN Toan
+ * @developer: LATOUR Rodolphe
+ * @description: Class to create the control of brightness screen
+ * @date : create May 23 2018
+ *
  */
 public class Lightcontrol extends AppCompatActivity implements SensorEventListener{
 
