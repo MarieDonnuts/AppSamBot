@@ -34,7 +34,6 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
     ImageView bluetoothStatue;
     ImageButton buttonConnectMenu;
     SeekBar seekBarSpeed;
-    TextView textViewSpeed;
     int speed;
 
     private long time = System.currentTimeMillis() /1000;
@@ -206,8 +205,6 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                         speed = 20;
                         break;
                 }
-                //Set the speed of robot
-                textViewSpeed.setText("Speed Robot : " + speed + " %");
             }
 
             @Override
@@ -226,7 +223,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                             BluetoothManager.getInstance().sendData(ControlPage.this, "q".toString());
                             String urlStr = String.format
                                     ("http://cabani.free.fr/ise/adddata.php?idproject=8&lux=%d&timestamp=%d&action=speed100",
-                                            Lightcontrol.lux, time);
+                                            (int)Lightcontrol.lux, time);
                             URL url = null;
                             try {
                                 url = new URL(urlStr);
@@ -235,7 +232,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                                 e.printStackTrace();
                             }
                             new WebConnection().executeRequest(url);
-                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ControlPage.this, "Speed 100%", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 80:
@@ -254,6 +251,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                                 e.printStackTrace();
                             }
                             new WebConnection().executeRequest(url);
+                            Toast.makeText(ControlPage.this, "Speed 80%", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 60:
@@ -272,7 +270,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                                 e.printStackTrace();
                             }
                             new WebConnection().executeRequest(url);
-                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ControlPage.this, "Speed 60%", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 40:
@@ -291,7 +289,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                                 e.printStackTrace();
                             }
                             new WebConnection().executeRequest(url);
-                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ControlPage.this, "Speed 40%", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case 20:
@@ -310,7 +308,7 @@ public class ControlPage extends AppCompatActivity implements BluetoothCallback 
                                 e.printStackTrace();
                             }
                             new WebConnection().executeRequest(url);
-                            Toast.makeText(ControlPage.this, "Turn left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ControlPage.this, "Speed 20%", Toast.LENGTH_SHORT).show();
                         }
                         break;
                 }
