@@ -21,6 +21,7 @@ import java.util.UUID;
 
 /**
  * Created by markjoselli2015 on 4/14/15.
+ * Class  who set functions for the bluetooth connection
  */
 public class BluetoothManager {
 

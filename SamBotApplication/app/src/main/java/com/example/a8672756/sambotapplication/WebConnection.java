@@ -10,13 +10,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-/*
- * @developer: DONNET Marie
- * @developer: PHAM TRAN Toan
- * @developer: LATOUR Rodolphe
- * @source : code develop with the teacher, lesson 3: "service web"
- * @description: Class to create the control of brightness screen
- * @date : create May 23 2018
+/**
+ * @author  DONNET Marie
+ * @author PHAM TRAN Toan
+ * @author LATOUR Rodolphe
+ * Class to connect the smartphone to the cloud server
+ * Create on may 23 2018
  *
  */
 public class WebConnection extends AsyncTask<String, Void, String> {
@@ -44,8 +43,9 @@ public class WebConnection extends AsyncTask<String, Void, String> {
     }
 
 
-    /*
+    /**
      *Method to execute a request
+     * @param url
      */
     public void executeRequest (final URL url) {
         // try to connect
@@ -79,8 +79,9 @@ public class WebConnection extends AsyncTask<String, Void, String> {
         };
         tryConnection.start();
     }
-    /*
-     * Method build a string 
+    /**
+     * Method build a string
+     * @param stream
      */
     private static String generateString(InputStream stream){
         InputStreamReader reader = new InputStreamReader(stream);
